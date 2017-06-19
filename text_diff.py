@@ -24,6 +24,13 @@ text2 = '''  1. Beautiful is better than ugly.
 5. Flat is better than nested.
 '''
 
+def number_lines(path):
+    s = str()
+    with open(path) as f:
+        for num, line in enumerate(f, 1):
+            s = s + str(num) + " " + line
+    return s
+
 def get_file_lists(path_a, path_b):
     """Take two string paths to specific files, and converts them to two lists 
     of strings from the files, separated by lines.
@@ -189,7 +196,7 @@ def diff_smart(path_a, path_b, flag="basic"):
     a, b = get_file_string(path_a, path_b)
     d = diff_match_patch.diff_match_patch()
     diffs = d.diff_main(a, b)
-    diffs = changes_diffs(d, diffs)
+    # diffs = changes_diffs(d, diffs)
     if flag == "efficient":
         d.diff_cleanupEfficiency(diffs)
     elif flag == "semantic":
@@ -209,7 +216,7 @@ def diff_smart_example(flag="basic"):
     """
     d = diff_match_patch.diff_match_patch()
     diffs = d.diff_main(text1, text2)
-    diffs = changes_diffs(d, diffs)
+    # diffs = changes_diffs(d, diffs)
     if flag == "efficient":
         d.diff_cleanupEfficiency(diffs)
     elif flag == "semantic":
@@ -224,7 +231,8 @@ def run():
     t0 = time.time()
     f1 = "xmldump_with_diffs/pre/XCA3I63K2U3B3K7LUF2FJXO37JE-6841.xml"
     f2 = "xmldump_with_diffs/post/XCA3I63K2U3B3K7LUF2FJXO37JE-6841.xml"
-    diff_smart(f1, f2, flag="basic")
+    # diff_smart(f1, f2, flag="basic")
+    htmldiff(f1, f2)
     print(time.time() - t0)
 
 if __name__ == '__main__' :
